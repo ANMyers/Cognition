@@ -1,0 +1,56 @@
+<div class="darkerGrey tanBG" id="HowItWorks">
+<div class="spacer darkerGrey"></div>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+ 	    <h2 class="text-center">How <span>Cognition</span> Works</h2><br>
+ 	    <p class="description-bigger">Currently I'm using an algorithm called "Nearest Neighbor" or "kmeans" to take my guess, but in the future I may have more. Heres how kmeans works.</p>
+		</div>
+	</div>
+	<br><br>
+	<div class="row">
+		<div class="col-lg-4 text-center">
+			<p>Step 1</p><br>
+			<div id="plottedGraph"></div><br>
+			<p> The first step is the plot each point with the corresponding number of dimensions, for this example I have randomly generated 50 plot points at two dimensions.</p> 
+		</div><br>
+		<div class="col-lg-4 text-center">
+			<p>Step 2</p><br>
+			<div id="clusteredGraph"></div><br>
+			<p> The next step is to process the data by clustering like points together, this also allows you to weigh the data depending on if there are more important attributes then others.</p>
+		</div><br>
+		<div class="col-lg-4 text-center">
+			<p>Step 3</p><br>
+			<div id="centroidGraph"></div><br>
+			<p> The last step is where the algorithm kmeans comes into play. This algorithm will find the most defined center of your two, or more, groupings. Scroll down for the last step.</p>
+		</div><br>
+	</div><br><br><br><br>
+	<div class="row">
+		<div class="col-lg-1"></div>
+		<div class="col-lg-4 move-off-left text-center">
+		<br><br>
+			<h3 class="text-center">Testing Your Data</h3><br>
+			<p class="text-center">The more information of plot points you feed into your graph the more accurate your guess can become.</p><br>
+			<p class="text-center">Now I'd like you to input a plot point for the graph to display and measure the distance between each center point. This is how the algorithm guesses. This is a simple example but things can get quite complex.<br> On the "Demonstration" page I show you how I can use 30 dimensions for predicting outcomes.</p><br>
+			<div class="col-lg-12">
+				<label>X</label><input type="text" size="15" name="xplot" ng-model="testX">
+				<label>Y</label><input type="text" size="15" name="yplot" ng-model="testY">
+			</div><br><br><br>
+			<button class="btn btn-primary" ng-click="plotTestPoints()">Plot And Show Distance</button>
+			<button class="btn btn-primary" ng-click="resetTestPoints()">Reset Points</button><br><br><br>
+			<p class="text-left">Distance to Blue Centroid: </p><p>{{distanceToCent1}}</p>
+			<p class="text-left">Distance to Red Centroid: </p><p>{{distanceToCent2}}</p>
+			<p class="text-left">Color your point would be grouped with: </p><p>{{groupedWith}}</p>
+		</div>
+		<div class="col-lg-6 text-center">
+			<br>
+			<h3>Test Your Graph</h3>
+			<div id="tryItYourselfGraph"></div>
+		</div>
+	</div>
+<div class="empty-div-for-space"></div>
+</div>
+
+
+
+

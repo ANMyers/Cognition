@@ -1,0 +1,393 @@
+<div class="row tanBG">
+  <div class="col-lg-1"></div>
+  <div class="col-lg-10">
+    <br><br><br>
+      <br>
+
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <h2 class="text-center">What <span>Cognition</span> Can Do</h2><br>
+        <p class="description-bigger">This is one application of Cognition where you can see how useful it can be. Here I've collected a set of data from <a target="_blank" href="https://archive.ics.uci.edu/ml/datasets.html">UCI Machine Learning Repository</a> on breast cancer patients and information pertaining to their tumor. Below you can use that dataset to see the kmeans algorithm in action.
+        <br><br>
+        P.S. If you don't understand something please hightlight over the <strong>title</strong> to view more information.</p>
+<!--         <button ng-click="calculatePlz()">Calculate</button>
+        <button ng-click="sendAllToFB()">Look Good? Send it!</button> -->
+      </div>
+    </div>
+
+      <br><br>
+        <!-- <button class="btn btn-primary" ng-click="display()">Display Graph</button><br><br> -->
+  <div class="row">
+    <div class="col-lg-5">
+      <h3 ng-mouseover="showTestFeatures()" ng-mouseleave="hideTestFeatures()"><strong>Testing Features</strong></h3>
+      <span class="description" ng-show="testFeatures">
+          Move your mouse over the titles below for explanation.
+      </span>
+    <br>
+      <div class="row">
+        <div class="col-lg-7">
+        <h4 ng-mouseover="showDataTrained()" ng-mouseleave="hideDataTrained()">
+          <strong>Amount of Data Trained: </strong>{{numberOfDataSets}}
+        </h4>
+        </div>
+        <br>
+        <div class="col-lg-5">
+        <span class="description" ng-show="dataTrained">
+          Refering back to the "How Cognition Works" page Amount of Data Trained is the amount of plot points available on the graph for the algorithm to group. The more correctly placed plot points the higher the accuracy becomes.
+        </span>
+        </div>
+        
+      </div>
+
+
+
+        <button class="btn btn-primary" ng-click="pullSetToDisplay(100)">100</button>
+        <button class="btn btn-primary" ng-click="pullSetToDisplay(200)">200</button>
+        <button class="btn btn-primary" ng-click="pullSetToDisplay(300)">300</button>
+        <button class="btn btn-primary" ng-click="pullSetToDisplay(400)">400</button>
+        <button class="btn btn-primary" ng-click="pullSetToDisplay(500)">500</button>
+
+
+        <br><br>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h4 ng-mouseover="showTestAgainst()" ng-mouseleave="hideTestAgainst()">
+            <strong>Data to Test Against: </strong>{{numberofTestDataSets}}
+          </h4>
+        </div>
+        <br>
+        <div class="col-lg-6">
+          <span class="description" ng-show="testAgainst">
+          Refering back to the "How Cognition Works" page Data to Test Against is just like ploting your own point except in this case this is how many plot points you want the algorithm to take a guess with. After training and clicking 'Predict' you can view the results to the right.
+        </span>
+        </div>
+        <br>
+      </div>
+        <button class="btn btn-primary" ng-click="grabDataSet()">Random Number of Sets</button>
+
+
+        <br><br>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h4 ng-mouseover="showTestAccurracy()" ng-mouseleave="hideTestAccuracy()">
+            <strong>Click To Test Accuracy</strong>
+          </h4>
+        </div>
+        <div class="col-lg-6">
+          <span class="description" ng-show="testAccuracy">
+          Make sure to click an amount to train with then click the amount to train against first then you can view the results to the right.
+        </span>
+        </div>
+        <br>
+      </div>
+        <button class="btn btn-success" ng-click="accuracyTest()">Predict</button>
+
+        <br><br>
+
+    </div>
+
+    <div class="col-lg-7">
+      <div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="text-center table-spaceing">True Malignant</th>
+                <th class="text-center table-spaceing">True Benign</th>
+                <th class="text-center table-spaceing">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="table-spaceing" scope="row">Predicted Malignant</th>
+                <td class="text-center table-spaceing">{{correctMalignant}}</td>
+                <td class="text-center table-spaceing">{{incorrectMalignant}}</td>
+                <td class="text-center table-spaceing">{{totalPredictedMalignant}}</td>
+              </tr>
+              <tr>
+                <th class="table-spaceing" scope="row">Predicted Benign</th>
+                <td class="text-center table-spaceing">{{incorrectBenign}}</td>
+                <td class="text-center table-spaceing">{{correctBenign}}</td>
+                <td class="text-center table-spaceing">{{totalPredictedBenign}}</td>
+              </tr>
+              <tr>
+                <th class="table-spaceing" scope="row">Total</th>
+                <td class="text-center table-spaceing">{{totalTrueMalignant}}</td>
+                <td class="text-center table-spaceing">{{totalTrueBenign}}</td>
+                <td class="text-center table-spaceing">{{overallTotal}}</td>
+              </tr>
+              <tr>
+                <th class="table-spaceing" scope="row"></th>
+                <td class="table-spaceing"></td>
+                <td class="table-spaceing"></td>
+                <td class="table-spaceing"></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+   
+      <div class="row">
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="text-center table-spaceing">Malignant</th>
+                <th class="text-center table-spaceing">Benign</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="table-spaceing" scope="row">Predicted Accuracy</th>
+                <td class="text-center table-spaceing">{{malignantAccuracy}}%</td>
+                <td class="text-center table-spaceing">{{benignAccuracy}}%</td>
+              </tr>
+              <tr>
+                <th class="table-spaceing" scope="row"></th>
+                <td class="table-spaceing"></td>
+                <td class="table-spaceing"></td>
+              </tr>
+              <tr>
+                <th class="table-spaceing" scope="row">Overall Accuracy</th>
+                <td class="text-center table-spaceing">{{trueAccuracy}}%</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+      <br><br><br><br>
+        <div ng-show="predicted">
+          Once you've used the predict functionality a few times you can view your results of the last 6 on the graph to the right. Scroll down to test your own.
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div id="test"></div>
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="col-lg-12"></div>
+      </div>
+
+    <div class="row">
+      
+      <div class="col-lg-4">
+      
+          <h3 ng-mouseover="showOwnDataSet()" ng-mouseleave="hideOwnDataSet()">
+            Apply Your Own Dataset
+          </h3>
+     
+        
+          <span class="description" ng-show="ownDataSet">
+            This is to allow you to use your own Data to see which cluster your plot will be grouped into. This is not meant to diagnose, treat, or cure any disease its just an implementation of an algorithm on a real world problem.
+          </span>
+      
+        <input type="text" name="testSample" data-toggle="modal" data-target="#DataModal" size="35"><br><br>
+        <button class="btn btn-primary" ng-click="testUserDataSet(5)">Generate Random & Predict</button>
+      </div>
+      <div class="col-lg-8">
+        <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center table-spaceing">Your DataSet</th>
+                <th class="text-center table-spaceing">Result</th>
+                <th class="text-center table-spaceing">Current Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="table-spaceing overflow-scroll" ng-mouseover="showYourDataSet()" ng-mouseleave="hideYourDataSet()" scope="row">
+                  {{userDataSet}}
+                </th>
+                <td class="table-spaceing text-center">{{userResults}}</td>
+                <td class="table-spaceing text-center">{{userAccuracy}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <span class="description" ng-show="yourDataSet">
+            {{userDataSet}}
+          </span>
+      </div>
+    </div>
+
+
+<!-- Data Modal -->
+    <div class="modal fade" id="DataModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <!-- Data Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Data Set Information</h4>
+          </div>
+          <div class="modal-body">
+
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+             First Cell Nucleus
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-lg-1"></div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="1" ng-model="input1">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="2" ng-model="input2">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="3" ng-model="input3">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="4" ng-model="input4">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="5" ng-model="input5">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="6" ng-model="input6">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="7" ng-model="input7">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="8" ng-model="input8">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="9" ng-model="input9">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="10" ng-model="input10">
+              </div>  
+            </div>
+
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+              Second Cell Nucleus
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-lg-1"></div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="1" ng-model="input11">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="2" ng-model="input12">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="3" ng-model="input13">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="4" ng-model="input14">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="5" ng-model="input15">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="6" ng-model="input16">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="7" ng-model="input17">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="8" ng-model="input18">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="9" ng-model="input19">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="10" ng-model="input20">
+              </div>  
+            </div>
+
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+              Third Cell Nucleus
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-lg-1"></div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="1" ng-model="input21">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="2" ng-model="input22">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="3" ng-model="input23">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="4" ng-model="input24">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="5" ng-model="input25">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="6" ng-model="input26">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="7" ng-model="input27">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="8" ng-model="input28">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="9" ng-model="input29">
+              </div>
+              <div class="col-lg-1 no-padding">
+              <input class="form-control no-padding" size="5" type="number" name="10" ng-model="input30">
+              </div>  
+            </div>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+            <br>
+              Ten real-valued features are computed for each cell nucleus<br><br>
+              a) radius (mean of distances from center to points on the perimeter)<br>
+              b) texture (standard deviation of gray-scale values) <br>
+              c) perimeter <br>
+              d) area <br>
+              e) smoothness (local variation in radius lengths) <br>
+              f) compactness (perimeter^2 / area - 1.0) <br>
+              g) concavity (severity of concave portions of the contour) <br>
+              h) concave points (number of concave portions of the contour) <br>
+              i) symmetry <br>
+              j) fractal dimension ("coastline approximation" - 1)<br><br>
+
+              Alternatively you can click <button type="button" ng-click="generateRandom()">Generate Random</button>
+            </div>
+          </div>
+
+
+          </div>
+          <div class="modal-footer">
+<!-- Start Need Information alert -->
+                  <div class="alert alert-danger"> 
+                  <i class="fa fa-coffee"></i>
+                  <strong>Please fill in all fields before moving on.</strong>
+                  </div>
+<!-- End Need Information alert -->
+           <button type="button" class="btn btn-primary" ng-click="testUserDataSet()">Predict</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  <div class="empty-div-for-space"></div>
+
+</div>
+</div>
